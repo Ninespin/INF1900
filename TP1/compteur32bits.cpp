@@ -37,6 +37,7 @@ int mainControleDEL()
 
 
 
+// INTERRUPT
 int mainInterrupt(){
 	DDRD = 0x00;
 	DDRB = 0xFF;
