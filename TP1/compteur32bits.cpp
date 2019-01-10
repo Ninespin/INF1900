@@ -6,33 +6,39 @@
  * Version: 1.1
  */
 
-
+#define F_CPU 8000000UL
 #include <avr/io.h> 
+#include <avr/interrupt.h>
+#include <util/delay.h>
+#include <stdint.h>
+
+
+void setColorDelay(uint8_t color, uint16_t ms){
+	uint8_t currentColor = color;
+	uint8_t offset = 0;
+	while(ms > 0){
+		PORTB = (currentColor & 0x1) << offset;
+		currentColor >>= 1;
+		offset++;
+		if(currentColor == 0x0){
+			currentColor = color;
+			offset = 0;
+		}		
+		_delay_ms(1);
+		ms--;
+	}
+}
 
 int main()
 {
-  DDRA = 0xff; // PORT A est en mode sortie
   DDRB = 0xff; // PORT B est en mode sortie
-  DDRC = 0xff; // PORT C est en mode sortie
-  DDRD = 0xff; // PORT D est en mode sortie
-  unsigned long compteur=0; // le compteur est initialise a 0.
-                            // c'est un compteur de 32 bits
+  uint8_t compteur = 0;
 
   for(;;)  // boucle sans fin
   {
-    compteur++;  // incremente le compteur
-                 // si le compteur est 0xffff ffff il revient a 0
-    PORTD = compteur;       // PORTD = 8 bits de large,
-                            // il prend les bits de 0 a 7 du compteur
-    PORTC = compteur >> 8;  // PORTC = 8 bits de large,
-                            // il prend les bits de 8 a 15 du compteur
-                            // en faisant un decallage de 8 bits.
-    PORTB = compteur >> 16; // PORTB = 8 bits de large,
-                            // il prend les bits de 16 a 23 du compteur
-                            // en faisant un decallage de 16 bits.
-    PORTA = compteur >> 24; // PORTA = 8 bits de large,
-                            // il prend les bits de 24 a 31 du compteur
-                            // en faisant un decallage de 24 bits.
+	setColorDelay(0x1, 1000U);
+	setColorDelay(0x2, 1000U);
+	setColorDelay(0x3, 1000U);
   }
   return 0; 
 }
