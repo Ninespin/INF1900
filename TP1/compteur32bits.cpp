@@ -43,21 +43,32 @@ int mainInterrupt(){
 
 	bool lastBtn = 0;
 	bool btn = 0;
+	uint8_t debounceCounter = 0;
+	const uint8_t thres = 10;
+	const uint8_t dt = 1;
+	
 	while(1){
 		btn = PIND & 0x04;
 
-		if(btn){
-			if(PORTB & 0x01){
-				PORTB = (PORTB & 0xFC) | 0x02;
-			}else if(PORTB & 0x02){
-				PORTB = (PORTB & 0xFC) | 0x01;
-			}else{
-				PORTB = (PORTB & 0xFC) | 0x01;
-			}
-		}
-
-		if(lastBtn && !btn){		
+		if(lastBtn != btn){		
 			PORTB = 0x00;
+			debounceCounter = 0;
+		}		
+
+		if(btn){
+			if(debounceCounter > thres){
+				if(PORTB & 0x01){
+					PORTB = (PORTB & 0xFC) | 0x02;
+				}else if(PORTB & 0x02){
+					PORTB = (PORTB & 0xFC) | 0x01;
+				}else{
+					PORTB = (PORTB & 0xFC) | 0x02;
+				}
+			}else{
+				debounceCounter++;
+				_delay_ms(dt);			
+			}
+			
 		}
 
 		lastBtn = btn;
