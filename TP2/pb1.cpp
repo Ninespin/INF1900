@@ -4,6 +4,27 @@
 
 #include "button.h"
 
+/* Table des etats
+ *    	Etat     | btn | lastBtn | pressCounter | timer | DEL ( out ) | Etat suivant 
+ * -------------------------------------------------------------------------------------
+ *  INIT		 |  0  |    0    |      0 		|   X   |      0      |  BTN_PRESSED
+ *	BTN_PRESSED  |  1  |    0    |      0       |   X   |      0      |  BTN_RELEASED
+ *  BTN_RELEASE  |  0  |    1    |      1       |   X   |      0      |  BTN_PRESSED
+ *	BTN_PRESSED  |  1  |    0    |      1       |   X   |      0      |  BTN_RELEASED
+ *  BTN_RELEASE  |  0  |    1    |      2       |   X   |      0      |  BTN_PRESSED
+ *	BTN_PRESSED  |  1  |    0    |      2       |   X   |      0      |  BTN_RELEASED
+ *  BTN_RELEASE  |  0  |    1    |      3       |   X   |      0      |  BTN_PRESSED
+ *	BTN_PRESSED  |  1  |    0    |      3       |   X   |      0      |  BTN_RELEASED
+ *  BTN_RELEASE  |  0  |    1    |      4       |   X   |      0      |  BTN_PRESSED
+ *	BTN_PRESSED  |  1  |    0    |      4       |   X   |      0      |  BTN_RELEASED
+ *  BTN_RELEASE  |  0  |    1    |      5       |   X   |      0      |  LIGHT_ON  
+ * 	LIGHT_ON     |  x  |    x    |      5		|   0   | 	   1 	  |  LIGHT_ON
+ * 	LIGHT_ON     |  x  |    x    |      5		| 1000  | 	   1 	  |  INIT
+ *
+ */
+
+
+
 // ENUMS
 enum class STATES{
 	INIT = 0,
@@ -11,13 +32,7 @@ enum class STATES{
 	BTN_RELEASED,
 	LIGHT_ON
 };
-<<<<<<< HEAD
-
-
-enum class LED_COLORS {
-=======
 enum LED_COLORSW{
->>>>>>> 173f2f90149436ead0edcf48109893b20700ded0
 	OFF = 0x00,
 	RED = 0x01,
 	GREEN = 0x02
