@@ -30,7 +30,7 @@ PROJECTNAME=tp2
 # Listez tous les fichiers a compiler, separes par
 # un espace. exemple: 'tp1.c tp2.cpp':
 
-PRJSRC=pb1.cpp pb2.cpp button.cpp
+PRJSRC=pb1.cpp button.cpp
 
 # Inclusions additionnels (ex: -I/path/to/mydir)
 INC=
@@ -80,7 +80,7 @@ HEXFORMAT=ihex
 CFLAGS=-I. -MMD $(INC) -g -mmcu=$(MCU) -O$(OPTLEVEL) \
 	-fpack-struct -fshort-enums             \
 	-funsigned-bitfields -funsigned-char    \
-	-Wall                                        
+	-Wall -std=c++11                                   
 
 # Flags pour le compilateur en C++
 CXXFLAGS=-fno-exceptions     
