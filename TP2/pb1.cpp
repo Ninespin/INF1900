@@ -19,9 +19,12 @@ enum class LED_COLORS {
 };
 
 
+// GLOBALS
+unsigned int pressCounter = 0;
+
 // BUTTON PRESS EVENT
 int bPressed(){
-	PORTB = LED_COLORS::RED; 
+	
 	return 0;
 }
 
@@ -31,9 +34,10 @@ int bReleased(){
 	return 0;
 }
 
-int doStateINIT(){
+int init(){
 	
 }
+
 
 
 // MAIN
@@ -41,6 +45,7 @@ int main(){
 	DDRB = 0xFF;
 	DDRD = 0x00;
 	PORTB = LED_COLORS::OFF;
+
 
 	Button btn = Button(0x04, 100);
 	btn.btnPressed = &bPressed;

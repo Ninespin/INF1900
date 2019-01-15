@@ -1,1 +1,1 @@
-pb1.o: pb1.cpp
+pb1.o: pb1.cpp button.h
