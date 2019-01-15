@@ -311,15 +311,15 @@ END GROUP
 .signature
  *(.signature*)
 
-.stab           0x0000000000000000      0x6fc
+.stab           0x0000000000000000      0x708
  *(.stab)
- .stab          0x0000000000000000      0x690 pb2.o
- .stab          0x0000000000000690       0x6c /usr/lib/gcc/avr/7.2.0/avr5/libgcc.a(_exit.o)
+ .stab          0x0000000000000000      0x69c pb2.o
+ .stab          0x000000000000069c       0x6c /usr/lib/gcc/avr/7.2.0/avr5/libgcc.a(_exit.o)
                                          0x78 (size before relaxing)
 
-.stabstr        0x0000000000000000      0xeb0
+.stabstr        0x0000000000000000     0x1140
  *(.stabstr)
- .stabstr       0x0000000000000000      0xeb0 pb2.o
+ .stabstr       0x0000000000000000     0x1140 pb2.o
 
 .stab.excl
  *(.stab.excl)

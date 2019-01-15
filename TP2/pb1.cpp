@@ -13,9 +13,9 @@ enum class STATES{
 
 
 enum class LED_COLORS {
-	OFF = 0x00;
-	RED = 0x01;
-	GREEN = 0x02;
+	OFF = 0x00,
+	RED = 0x01,
+	GREEN = 0x02
 };
 
 

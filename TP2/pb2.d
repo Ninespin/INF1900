@@ -1,1 +1,1 @@
-pb2.o: pb2.cpp
+pb2.o: pb2.cpp button.h
