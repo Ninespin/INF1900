@@ -30,11 +30,7 @@ PROJECTNAME=tp2
 # Listez tous les fichiers a compiler, separes par
 # un espace. exemple: 'tp1.c tp2.cpp':
 
-<<<<<<< HEAD
-PRJSRC=pb2.cpp #pb1.cpp button.cpp
-=======
-PRJSRC=pb1.cpp button.cpp
->>>>>>> 173f2f90149436ead0edcf48109893b20700ded0
+PRJSRC=pb2.cpp pb1.cpp button.cpp
 
 # Inclusions additionnels (ex: -I/path/to/mydir)
 INC=
