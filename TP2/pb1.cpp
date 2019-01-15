@@ -2,85 +2,54 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
+#include "button.h"
 
-
-
-
-//INT BTNPRESS
-
-
-class Btn{
-public:
-	Btn()
-		: state(false)
-		, lastState(false)
-		, debounceCounter(0)
-		, pin(0x04)
-		, debounceCounterThreshold(10)
-	{
-	}
-
-	inline bool isPressed(){
-		return true;//((lastState = state), (state = PIND & pin), state); 
-	}	
-
-	int debounce(){
-		if(isPressed() != lastState){
-			// Rising edge			
-			if(state){
-				debounceCounter = 0;
-			}else{ // Falling edge
-				btnReleased();	
-			}
-
-		}
-		
-		if(state){
-			debounceCounter++;
-			if(debounceCounter >= debounceCounterThreshold){
-				btnPressed();
-			}
-			PORTB = 0x01;
-		}
-		return 0;	
-	}	
-
-
-private:
-	const unsigned int pin;
-	const unsigned int debounceCounterThreshold;
-	unsigned int debounceCounter;
-	
-public:
-	int (*btnPressed)();
-	int (*btnReleased)();
-	bool state;
-	bool lastState;
- 
-	
+enum class STATES{
+	INIT,
+	BTN_PRESSED,
+	BTN_RELEASED,
+	LIGHT_ON
 };
 
 
+enum class LED_COLORS {
+	OFF = 0x00;
+	RED = 0x01;
+	GREEN = 0x02;
+};
+
+
+// BUTTON PRESS EVENT
 int bPressed(){
-	PORTB = 0x02; // TODO set proper bit
-	return 0;
-}
-int bReleased(){
-	PORTB - 0x00;
+	PORTB = LED_COLORS::RED; 
 	return 0;
 }
 
+// BUTTON RELEASED EVENT
+int bReleased(){
+	PORTB = LED_COLORS::OFF;
+	return 0;
+}
+
+int doStateINIT(){
+	
+}
+
+
+// MAIN
 int main(){
 	DDRB = 0xFF;
 	DDRD = 0x00;
-	PORTB= 0x01;
+	PORTB = LED_COLORS::OFF;
 
-	Btn btn = Btn();
+	Button btn = Button(0x04, 100);
 	btn.btnPressed = &bPressed;
 	btn.btnReleased = &bReleased;
 	
 	while(1){
 		btn.debounce();
+
+		
 		_delay_ms(10);
 	}	
 
