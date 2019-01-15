@@ -1,3 +1,20 @@
+/* Table des états
+ * État | btn | lstBtn | État suiv. | DEL (sortie)
+ * -----------------------------------------------
+ *   A  |  0  |    0   |      A     |    rouge
+ *   A  |  1  |    0   |      B     |    ambre
+ *   A  |  1  |    1   |      A     |    rouge
+ *   A  |  0  |    1   |      D     |  	 éteint
+ *   B  |  1  |    1   |      B     |    ambre
+ *   B  |  0  |    1   |      C     |    vert
+ *   C  |  0  |    0   |      C     |    vert
+ *   C  |  1  |    0   |      A     |    rouge
+ *   C  |  1  |    1   |      C     |    vert
+ *   C  |  0  |    1   |      A     |    rouge
+ *   D  |  0  |    0   |      D     |    éteint
+ *   D  |  0  |    1   |      A     |    rouge
+ */
+
 #define F_CPU 8000000UL
 #include <avr/io.h>
 #include <util/delay.h>
@@ -11,6 +28,8 @@ enum State {RED, AMBER, GREEN, OFF};
 int main(){
 	DDRB = 0xff;
 	DDRD = 0x0;
+
+	Button btn = Button(0x04, 100);
 
 	bool lstBtn = 0;
 	bool btnPressed = 0;
